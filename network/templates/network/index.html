@@ -1,0 +1,21 @@
+{% extends "network/layout.html" %}
+
+{% block body %}
+    {% if form %}
+    <h5>All Posts</h5>
+    <br>
+        <div class="form">
+            <form action="." method="post">
+                {% csrf_token %}
+                {{ form.errors.content }}
+                <div class="form-group">
+                    {{ form.content }}
+                </div>
+                <button type="submit" class="btn btn-primary">Post</button>
+            </form>
+        </div>
+    {% endif %}
+    <br>
+    
+    {% include 'network/new_post.html' %}
+{% endblock %}

@@ -1,0 +1,41 @@
+{% for post in posts %}
+    <div class="card post-card my-3">
+        <div class="card-body card-content">
+            <h5 class="card-title"><a href="{% url 'profile' post.author.username %}">{{ post.author.username }}</a></h5>
+            <p class="card-text">{{ post.content }}</p>
+            <p class="card-text">{{ post.date_created }}</p>
+        </div>
+        {% if user == post.author %}
+        <div class="card-body card-form hide">
+            <h1>New Post</h1>
+            <form data-post-id="{{ post.pk }}">
+                <div class="form-group">
+                    <textarea class="form-control" name="content" rows="5">{{ post.content }}</textarea>
+                </div>
+                <button class="btn btn-primary">Post</button>
+            </form>
+        </div>
+        {% endif %}
+        <div class="card-footer">
+            <div class="likes" data-post-id="{{ post.id }}">
+                <span class="{% if user.is_authenticated %}like-button {% endif %}{% if user in post.liked_by.all %}liked{% endif %}">&#9829;</span>
+                <span class="like-count">{{ post.liked_by.count }}</span>
+            </div>
+            {% if user == post.author %}
+                <button class="btn btn-primary edit-toggle">Edit</button>
+            {% endif %}
+        </div>
+    </div>
+    {% empty %}
+    <p>There are no posts.</p>
+{% endfor %}
+{% if posts.has_other_pages %}
+    <div class="pages">
+        {% if posts.has_previous %}
+        <a href="?page={{ posts.previous_page_number }}">Prev</a>
+        {% endif %}
+        {% if posts.has_next %}
+        <a href="?page={{ posts.next_page_number }}" class="next">Next</a>
+        {% endif %}
+    </div>
+{% endif %}

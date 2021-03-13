@@ -1,0 +1,19 @@
+.hide {
+    display: none;
+}
+
+
+
+.likes {
+    display: inline;
+    font-size: 1.5rem;
+    width: 25%;
+}
+
+.liked {
+    color: rgb(231, 37, 37);
+}
+
+.next {
+    float: right;
+}
